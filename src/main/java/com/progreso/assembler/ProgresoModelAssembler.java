@@ -1,9 +1,9 @@
 package com.progreso.assembler;
 
 import org.springframework.stereotype.Component;
-import com.progreso.Progreso.controller.ProgresoController;
-import com.progreso.Progreso.dto.Progreso;
-import com.progreso.Progreso.dto.ProgresoModel;
+import com.progreso.controller.ProgresoController;
+import com.progreso.dto.Progreso;
+import com.progreso.dto.ProgresoModel;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 

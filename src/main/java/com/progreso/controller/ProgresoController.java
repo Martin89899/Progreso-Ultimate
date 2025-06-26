@@ -1,4 +1,4 @@
-package com.progreso.Progreso.controller;
+package com.progreso.controller;
 
 import java.util.List;
 
@@ -8,8 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.progreso.Progreso.dto.Progreso;
-import com.progreso.Progreso.services.ProgresoService;
+import com.progreso.dto.Progreso;
+import com.progreso.services.ProgresoService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

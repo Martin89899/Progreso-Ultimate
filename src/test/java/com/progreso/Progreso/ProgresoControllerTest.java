@@ -1,4 +1,4 @@
-package com.progreso.Progreso;
+package com.progreso;
 
 import static org.mockito.Mockito.when;
 
@@ -12,9 +12,9 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.progreso.Progreso.controller.ProgresoController;
-import com.progreso.Progreso.dto.Progreso;
-import com.progreso.Progreso.services.ProgresoService;
+import com.progreso.controller.ProgresoController;
+import com.progreso.dto.Progreso;
+import com.progreso.services.ProgresoService;
 
 @WebMvcTest(ProgresoController.class)
 public class ProgresoControllerTest {

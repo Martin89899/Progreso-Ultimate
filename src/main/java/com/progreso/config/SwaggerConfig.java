@@ -1,4 +1,4 @@
-package com.progreso.Progreso.config;
+package com.progreso.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

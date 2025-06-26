@@ -1,12 +1,12 @@
-package com.progreso.Progreso.services;
+package com.progreso.services;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.progreso.Progreso.dto.Progreso;
-import com.progreso.Progreso.repository.ProgresoRepository;
+import com.progreso.dto.Progreso;
+import com.progreso.repository.ProgresoRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -48,7 +48,7 @@ public class ProgresoService {
         if(aux != null){
             progresoRepository.delete(aux);
         }
-        return;
+        
 
 
     }
