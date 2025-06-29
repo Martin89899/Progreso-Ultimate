@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
-
 public class ProgresoModel extends RepresentationModel<ProgresoModel> {
 
     private Integer idEstudiante;

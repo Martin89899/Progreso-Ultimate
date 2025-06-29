@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.progreso.assembler.ProgresoModelAssembler;
 import com.progreso.dto.Progreso;
 import com.progreso.services.ProgresoService;
 
@@ -26,6 +27,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 public class ProgresoController {
     @Autowired
     private ProgresoService progresoService;
+
+    @Autowired
+    private ProgresoModelAssembler assembler;
 
     @GetMapping("")
     public List<Progreso>  obtenerProgreso(){
