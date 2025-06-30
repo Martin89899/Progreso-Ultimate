@@ -1,13 +1,16 @@
 package com.progreso.assembler;
 
+import org.springframework.hateoas.server.RepresentationModelAssembler;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import org.springframework.stereotype.Component;
+
 import com.progreso.controller.ProgresoController;
 import com.progreso.dto.Progreso;
 import com.progreso.dto.ProgresoModel;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
-import org.springframework.hateoas.server.RepresentationModelAssembler;
 
 @Component
 public class ProgresoModelAssembler implements RepresentationModelAssembler<Progreso, ProgresoModel> {

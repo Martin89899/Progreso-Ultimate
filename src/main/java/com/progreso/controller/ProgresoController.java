@@ -1,19 +1,24 @@
 package com.progreso.controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.progreso.dto.Progreso;
 import com.progreso.dto.ProgresoModel;
 import com.progreso.assembler.ProgresoModelAssembler;
 import com.progreso.services.ProgresoService;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v0/progreso")
+@Tag(name = "Progreso", description = "Operacion relacionado con el progreso")
 public class ProgresoController {
 
     @Autowired
