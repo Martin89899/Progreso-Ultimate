@@ -27,7 +27,7 @@ public class ProgresoModelAssembler implements RepresentationModelAssembler<Prog
         model.add(linkTo(methodOn(ProgresoController.class).buscaProgreso(progreso.getIdEstudiante())).withSelfRel());
         model.add(linkTo(methodOn(ProgresoController.class).obtenerProgreso()).withRel("Progresos"));
         model.add(linkTo(methodOn(ProgresoController.class).eliminarProgreso(progreso.getIdEstudiante())).withRel("Eliminar"));
-        model.add(linkTo(methodOn(ProgresoController.class).actualizarProgreso(progreso.getIdEstudiante(), progreso)).withRel("Actualizar"));
+        model.add(linkTo(methodOn(ProgresoController.class).actualizarProgreso(progreso, progreso.getIdEstudiante())).withRel("Actualizar"));
 
         return model;
 

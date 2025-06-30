@@ -1,72 +1,87 @@
 package com.progreso.controller;
 
-import java.util.List;
+import com.progreso.dto.Progreso;
+import com.progreso.dto.ProgresoModel;
+import com.progreso.assembler.ProgresoModelAssembler;
+import com.progreso.services.ProgresoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.progreso.assembler.ProgresoModelAssembler;
-import com.progreso.dto.Progreso;
-import com.progreso.services.ProgresoService;
-
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PutMapping;
-
-
-
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v0/progreso")
 public class ProgresoController {
+
     @Autowired
     private ProgresoService progresoService;
 
     @Autowired
     private ProgresoModelAssembler assembler;
 
+    // GET: todos los progresos
     @GetMapping("")
-    public List<Progreso>  obtenerProgreso(){
-        return progresoService.obtenerProgreso();
-    }
-    @PostMapping()
-        public Progreso guardar(@RequestBody Progreso pro){        
-            return progresoService.guardaProgreso(pro);
-    }
-    @GetMapping("{idEstudiante}")
-    public Progreso buscaProgreso(@PathVariable int idEstudiante) {
-        return progresoService.getProgresos(idEstudiante);
-    }
-    @PutMapping("{idEstudiante}")
-    public ResponseEntity<Progreso> actualizarProgreso(@PathVariable int idEstudiante, @RequestBody Progreso pro){       
-        Progreso aux = progresoService.actualizarProgreso(pro, idEstudiante);
-        if(aux==null){
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<?> obtenerProgreso() {
+        List<Progreso> progresos = progresoService.obtenerProgreso();
+        if (progresos.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No hay registros de progreso.");
         }
-        return ResponseEntity.ok(aux);
+        return ResponseEntity.ok(progresos);
     }
-    @DeleteMapping("{idEstudiante}")
-        public ResponseEntity<Object> eliminarProgreso(@PathVariable Integer idEstudiante){
-            progresoService.eliminarProgreso(idEstudiante);
-            return ResponseEntity.noContent().build();
 
+    //GET:por ID (renombrado a buscaProgreso)
+    @GetMapping("/{idEstudiante}")
+    public ResponseEntity<?> buscaProgreso(@PathVariable Integer idEstudiante) {
+        Progreso progreso = progresoService.getProgresos(idEstudiante);
+        if (progreso == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Progreso no encontrado");
+        }
+        ProgresoModel model = assembler.toModel(progreso);
+        return ResponseEntity.ok(model);
     }
-    @GetMapping("mejor-estudiante")
-    public ResponseEntity<?> obtenerMejorEstudiante() {
-    Progreso mejor = progresoService.obtenerTopNota();
-    if (mejor == null) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No hay estudiantes registrados.");
+
+    // POST:crear progreso
+    @PostMapping("")
+    public ResponseEntity<?> guardar(@RequestBody Progreso pro) {
+        Progreso guardado = progresoService.guardaProgreso(pro);
+        ProgresoModel model = assembler.toModel(guardado);
+        return ResponseEntity.status(HttpStatus.CREATED).body(model);
     }
-    return ResponseEntity.ok(mejor);
+
+    //PUT: actualizar progreso (renombrado a actualizarProgreso)
+    @PutMapping("/{idEstudiante}")
+    public ResponseEntity<?> actualizarProgreso(@RequestBody Progreso pro, @PathVariable Integer idEstudiante) {
+        Progreso actualizado = progresoService.actualizarProgreso(pro, idEstudiante);
+        if (actualizado == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se pudo actualizar: no existe el ID.");
+        }
+        ProgresoModel model = assembler.toModel(actualizado);
+        return ResponseEntity.ok(model);
+    }
+
+    // DELETE: eliminar progreso
+    @DeleteMapping("/{idEstudiante}")
+    public ResponseEntity<Void> eliminarProgreso(@PathVariable Integer idEstudiante) {
+        boolean eliminado = progresoService.eliminarProgreso(idEstudiante);
+        if (eliminado) {
+            return ResponseEntity.noContent().build(); // 204
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // 404
+        }
+    }
+
+    // GET: mejor estudiante
+    @GetMapping("/mejor-estudiante")
+    public ResponseEntity<?> mejorEstudiante() {
+        Progreso mejor = progresoService.obtenerTopNota();
+        if (mejor == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No hay estudiantes registrados.");
+        }
+        ProgresoModel model = assembler.toModel(mejor);
+        return ResponseEntity.ok(model);
+    }
 }
 
-
-    
-    
-}

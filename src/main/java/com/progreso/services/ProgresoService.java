@@ -8,10 +8,8 @@ import org.springframework.stereotype.Service;
 import com.progreso.dto.Progreso;
 import com.progreso.repository.ProgresoRepository;
 
-import jakarta.transaction.Transactional;
 
 @Service
-@Transactional
 public class ProgresoService {
     
     @Autowired
@@ -43,14 +41,15 @@ public class ProgresoService {
 
     }
 
-    public String eliminarProgreso(Integer idEstudiante) {
-        Progreso aux = getProgresos(idEstudiante);
-        if(aux != null){
-            progresoRepository.delete(aux);
-        }
-        
+    public boolean eliminarProgreso(Integer idEstudiante) {
+    Progreso aux = getProgresos(idEstudiante);
+    if(aux != null){
+        progresoRepository.delete(aux);
+        return true;
+    }
+    return false;
 
-
+    
     }
 
     public Progreso obtenerTopNota() {

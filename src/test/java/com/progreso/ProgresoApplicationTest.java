@@ -1,4 +1,4 @@
-package com.progreso.Progreso;
+package com.progreso;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -6,9 +6,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class ProgresoApplicationTest {
 
-    @Test
-    void
-
-
+	@Test
+	void contextLoads() {
+	}
 
 }
+
+

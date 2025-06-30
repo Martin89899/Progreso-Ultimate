@@ -13,7 +13,7 @@ public class ProgresoModel extends RepresentationModel<ProgresoModel> {
 
     private Integer idEstudiante;
     private String rutEstudiante;
-    private String NombreEstudiante;
+    private String nombreEstudiante;
     private int asistencia;
     private int notas;
 
