@@ -12,6 +12,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.hateoas.Link;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -88,7 +89,7 @@ public class ProgresoControllerTest {
         when(service.guardaProgreso(any(Progreso.class))).thenReturn(guardado);
         when(assembler.toModel(any(Progreso.class))).thenReturn(new DummyProgresoModel(guardado));
 
-        mockMvc.perform(post("/api/v0/progreso/")
+        mockMvc.perform(post("/api/v0/progreso")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(nuevo)))
             .andExpect(status().isCreated())

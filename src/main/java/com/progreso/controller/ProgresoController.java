@@ -28,13 +28,20 @@ public class ProgresoController {
     private ProgresoModelAssembler assembler;
 
     // GET: todos los progresos
-    @GetMapping("")
+   @GetMapping("")
     public ResponseEntity<?> obtenerProgreso() {
-        List<Progreso> progresos = progresoService.obtenerProgreso();
-        if (progresos.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No hay registros de progreso.");
-        }
-        return ResponseEntity.ok(progresos);
+    List<Progreso> progresos = progresoService.obtenerProgreso();
+    
+    if (progresos.isEmpty()) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No hay registros de progreso.");
+    }
+
+    // Convierte la lista de entidades a modelos HATEOAS
+    return ResponseEntity.ok(
+        assembler.toCollectionModel(progresos)
+    );
+
+
     }
 
     //GET:por ID (renombrado a buscaProgreso)
